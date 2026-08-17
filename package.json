@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:login": "playwright test login.spec.ts --project=chromium"
+    "test:login": "playwright test login.spec.ts --project=chromium",
+    "test:product-image": "playwright test tests/pageimage.spec.ts --project=chromium"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "@types/node": "^26.2.0"
+    "@types/node": "^26.2.0",
+    "dotenv": "^17.4.2"
   }
 }

@@ -20,7 +20,7 @@ test.describe.serial('WinSource Search', () => {
     });
 
     test('Step 1: Create an account', async () => {
-        await page.goto(siteUrl, { waitUntil: 'domcontentloaded' });
+        await page.goto(siteUrl, { waitUntil: 'domcontentloaded' }, {});
         // The site exposes the main search field with this placeholder.
         const searchBox = page.getByPlaceholder('Search Parts').first();
         await expect(searchBox).toBeVisible();
