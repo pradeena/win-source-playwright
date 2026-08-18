@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:login": "playwright test login.spec.ts --project=chromium",
+    "test:product-image": "playwright test tests/pageimage.spec.ts --project=chromium",
+    "test:product-search": "playwright test tests/product-search.spec.ts --project=chromium"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "@types/node": "^26.2.0"
+    "@types/node": "^26.2.0",
+    "dotenv": "^17.4.2"
   }
 }
