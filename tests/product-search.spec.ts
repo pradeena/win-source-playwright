@@ -16,6 +16,7 @@ test.describe('WIN SOURCE product search', () => {
 
     // Search results can take a moment to render.  Select the matching product
     // link specifically, so navigation is not affected by menu/footer links.
+    const targetPartNumber = PART_NUMBER.trim();
     const firstMatchingProduct = page
       .locator('a[href*="/products/detail/"]')
       .filter({ hasText: PART_NUMBER })
