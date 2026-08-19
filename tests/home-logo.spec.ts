@@ -8,7 +8,7 @@ test.describe('WIN SOURCE home page', () => {
 
     // The site uses the logo image as its home-page link in the header.
     const logo = page
-      .locator('header a[href="/"], header a[href="https://www.win-source.net/"]')
+      .getByRole('link', { name: "Obsolete electronic parts" })
       .locator('img')
       .first();
 

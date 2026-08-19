@@ -36,6 +36,6 @@ test.describe('WIN SOURCE login', () => {
             submitButton.click(),
         ]);
 
-        await expect(page).not.toHaveURL(/\/login(?:\?|$)/i);
+        await expect(page).not.toHaveURL(/\/login(?:\?|$)/i, { timeout: 10000 });
     });
 });

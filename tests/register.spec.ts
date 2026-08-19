@@ -24,22 +24,29 @@ test('must see register form in register page', async ({ page }) => {
   await expect(page.getByLabel('Email:')).toBeVisible();
   await expect(page.getByLabel('Company name:')).toBeVisible();
   await expect(page.getByLabel('Phone:')).toBeVisible();
-  await expect(page.getByLabel("Role:")).toBeVisible()
+  await expect(page.locator('select[id="customer_attribute_1"]')).toBeVisible();
+  await expect(page.locator('select[id="CountryId"]')).toBeVisible();
   await expect(page.getByLabel("Country:")).toBeVisible()
-  await expect(page.getByLabel("Password:")).toBeVisible()
-  await expect(page.getByLabel("Confirm password:")).toBeVisible()
+  await expect(page.getByLabel("Confirm password:", { exact: true })).toBeVisible()
+  await expect(page.getByLabel("Password:", { exact: true })).toBeVisible()
 });
 
 test('Form must be submitable', async ({ page }) => {
   await page.goto('https://win-source.net/register');
-
+  const email = `test-${Date.now()}@example.com`;
   // Expects page to have a heading with the name of Installation.
   await page.getByLabel('First name:').fill("Pradeen")
   await page.getByLabel('Last name:').fill("Shrestha")
-  await page.getByLabel('Email:').fill("pradeena@gmail.com")
+  await page.getByLabel('Email:').fill(email)
   await page.getByLabel('Company name:').fill("SEA")
   await page.getByLabel('Phone:').fill("")
   await page.getByLabel("Country:").selectOption("1")
-  await page.getByLabel("Password:").fill("secret")
-  await page.getByLabel("Confirm password:").fill("secret")
+  await page.getByLabel("Password:", {
+    exact: true
+  }).fill("topsecret")
+  await page.getByLabel("Confirm password:", { exact: true }).fill("topsecret")
+  await page.getByLabel('You agree to WIN SOURCE\'s', { exact: true }).click()
+  await page.getByRole('button', { name: 'Register' }).click()
+  await expect(page).toHaveURL(/\/register\?resultId=[a-zA-Z0-9]+&customerGuid=[a-zA-Z0-9]+/)
+  await expect(page.getByText('Your registration has been successfully completed. You have just been sent an email containing account activation instructions.')).toBeVisible()
 });
