@@ -7,7 +7,8 @@
     "test": "playwright test",
     "test:login": "playwright test login.spec.ts --project=chromium",
     "test:product-image": "playwright test tests/pageimage.spec.ts --project=chromium",
-    "test:product-search": "playwright test tests/product-search.spec.ts --project=chromium"
+    "test:product-search": "playwright test tests/product-search.spec.ts --project=chromium",
+    "generate-auth": "node scripts/generate-auth.js"
   },
   "keywords": [],
   "author": "",

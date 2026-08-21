@@ -6,6 +6,11 @@ const PRODUCT_URL =
 const PART_NUMBER = 'LM358BIDR';
 
 test.describe('WIN SOURCE product detail page', () => {
+  // Anonymous visits to product detail pages are now redirected to /login
+  // (returnUrl pointing back at this page), so reuse the logged-in session
+  // saved by `npm run generate-auth`.
+  test.use({ storageState: 'playwright/.auth/user.json' });
+
   test('loads the product image correctly', async ({ page }) => {
     await page.goto(PRODUCT_URL, { waitUntil: 'domcontentloaded' });
 

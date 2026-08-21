@@ -3,6 +3,10 @@ import { expect, test } from '@playwright/test';
 const PART_NUMBER = 'LM358BIDR';
 
 test.describe('WIN SOURCE product search', () => {
+  // Reuse the logged-in session saved by `npm run generate-auth`, since
+  // anonymous searches are now redirected to the login page.
+  test.use({ storageState: 'playwright/.auth/user.json' });
+
   test('finds a product and displays its details', async ({ page }) => {
     await page.goto('https://www.win-source.net/', {
       waitUntil: 'domcontentloaded',
@@ -12,22 +16,13 @@ test.describe('WIN SOURCE product search', () => {
     const searchBox = page.getByPlaceholder('Search Parts').first();
     await expect(searchBox).toBeVisible();
     await searchBox.fill(PART_NUMBER);
-    await searchBox.press('Enter');
 
-    // Search results can take a moment to render.  Select the matching product
-    // link specifically, so navigation is not affected by menu/footer links.
-    const targetPartNumber = PART_NUMBER.trim();
-    const firstMatchingProduct = page
-      .locator('a[href*="/products/detail/"]')
-      .filter({ hasText: PART_NUMBER })
-      .first();
-
-    await expect(firstMatchingProduct).toBeVisible({ timeout: 20_000 });
-    await expect(firstMatchingProduct).toContainText(PART_NUMBER);
-
+    // A search that matches exactly one part number now redirects straight to
+    // that product's detail page — there is no intermediate results list to
+    // click through, so wait for the detail-page URL instead of a list link.
     await Promise.all([
-      page.waitForURL(/\/products\/detail\//),
-      firstMatchingProduct.click(),
+      page.waitForURL(/\/products\/detail\//, { timeout: 20_000 }),
+      searchBox.press('Enter'),
     ]);
 
     // Confirm this is the selected product, then check key product details.
