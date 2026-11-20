@@ -15,7 +15,9 @@ const dotenv = require('dotenv');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const LOGIN_URL = 'https://www.win-source.net/login';
+const BASE_URL = process.env.BASE_URL || 'https://www.win-source.net';
+const LOGIN_URL = new URL('/login', BASE_URL).toString();
+const AUTOMATION_KEY = process.env.WS_AUTOMATION_KEY;
 const AUTH_FILE = path.resolve(__dirname, '../playwright/.auth/user.json');
 
 (async () => {
@@ -36,11 +38,9 @@ const AUTH_FILE = path.resolve(__dirname, '../playwright/.auth/user.json');
   // through the test runner (see `use.extraHTTPHeaders`). The site appears to
   // gate automated traffic on it, so a context created outside the test
   // runner (like this script) has to add it manually or pages hang/never
-  // render correctly. Keep this in sync with playwright.config.ts.
+  // render correctly. Both read the key from WS_AUTOMATION_KEY.
   const context = await browser.newContext({
-    extraHTTPHeaders: {
-      'x-ws-automation-key': '$4b5YSE^TgK<iJNU#uF75x',
-    },
+    extraHTTPHeaders: AUTOMATION_KEY ? { 'x-ws-automation-key': AUTOMATION_KEY } : {},
   });
   const page = await context.newPage();
 

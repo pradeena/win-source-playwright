@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const LOGIN_URL = 'https://www.win-source.net/login';
+const LOGIN_URL = '/login';
 
 // These values are intentionally read at runtime. Do not put real credentials
 // in this file or commit a .env file containing them.

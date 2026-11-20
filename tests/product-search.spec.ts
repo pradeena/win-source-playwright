@@ -8,7 +8,7 @@ test.describe('WIN SOURCE product search', () => {
   test.use({ storageState: 'playwright/.auth/user.json' });
 
   test('finds a product and displays its details', async ({ page }) => {
-    await page.goto('https://www.win-source.net/', {
+    await page.goto('/', {
       waitUntil: 'domcontentloaded',
     });
 

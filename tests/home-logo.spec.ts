@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const HOME_URL = 'https://www.win-source.net/';
+const HOME_URL = '/';
 
 test.describe('WIN SOURCE home page', () => {
   test('shows a loaded WIN SOURCE logo', async ({ page }) => {

@@ -2,7 +2,7 @@
 import { expect, test } from '@playwright/test';
 
 const PRODUCT_URL =
-  'https://www.win-source.net/products/detail/texas-instruments/lm358bidr.html';
+  '/products/detail/texas-instruments/lm358bidr.html';
 const PART_NUMBER = 'LM358BIDR';
 
 test.describe('WIN SOURCE product detail page', () => {

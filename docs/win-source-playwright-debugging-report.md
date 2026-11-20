@@ -24,7 +24,7 @@ Configuration (`playwright.config.ts`) runs against chromium/firefox/webkit, and
 
 ```ts
 extraHTTPHeaders: {
-  "x-ws-automation-key": "$4b5YSE^TgK<iJNU#uF75x",
+  "x-ws-automation-key": "<redacted - set WS_AUTOMATION_KEY>",
 },
 ```
 
@@ -164,7 +164,7 @@ Playwright's bundled WebKit reports a User-Agent with `Version/26.5` — a Safar
 
 ```ts
 extraHTTPHeaders: {
-  "x-ws-automation-key": "$4b5YSE^TgK<iJNU#uF75x",
+  "x-ws-automation-key": "<redacted - set WS_AUTOMATION_KEY>",
 },
 ```
 

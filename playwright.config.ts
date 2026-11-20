@@ -4,6 +4,17 @@ import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
+// Target site. Point at a UAT by setting BASE_URL (in .env or the shell);
+// defaults to the live site.
+const BASE_URL = process.env.BASE_URL || 'https://www.win-source.net';
+
+// Header the site uses to recognise automated test traffic. Each environment
+// may use a different key, so it is read from the environment, never hardcoded.
+const AUTOMATION_KEY = process.env.WS_AUTOMATION_KEY;
+if (!AUTOMATION_KEY) {
+  console.warn('WS_AUTOMATION_KEY is not set; requests will be sent without the automation header.');
+}
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -23,10 +34,8 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
-    extraHTTPHeaders: {
-      "x-ws-automation-key": "$4b5YSE^TgK<iJNU#uF75x",
-    },
+    baseURL: BASE_URL,
+    extraHTTPHeaders: AUTOMATION_KEY ? { 'x-ws-automation-key': AUTOMATION_KEY } : {},
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
